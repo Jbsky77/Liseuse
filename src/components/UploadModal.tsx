@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useBooks } from '@/hooks/useBooks';
 import { Upload } from 'lucide-react';
+import { extractPdfMetadata } from '@/lib/pdf';
 
 interface UploadModalProps {
   isOpen: boolean;
@@ -19,13 +20,18 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
   const [author, setAuthor] = useState('');
   const [series, setSeries] = useState('');
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile && selectedFile.type === 'application/pdf') {
       setFile(selectedFile);
-      if (!title) {
+      const meta = await extractPdfMetadata(selectedFile);
+      if (meta.title) {
+        setTitle(meta.title);
+      } else if (!title) {
         setTitle(selectedFile.name.replace('.pdf', ''));
       }
+      if (meta.author) setAuthor(meta.author);
+      if (meta.series) setSeries(meta.series);
     }
   };
 

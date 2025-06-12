@@ -1,14 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useBooks } from '@/hooks/useBooks';
 import { useAuth } from '@/hooks/useAuth';
 import BookCard from '@/components/BookCard';
 import { Button } from '@/components/ui/button';
 import { BookOpen } from 'lucide-react';
+import UploadModal from '@/components/UploadModal';
 
 const BookGrid = () => {
   const { user } = useAuth();
   const { books, isLoading } = useBooks();
+  const [showUploadModal, setShowUploadModal] = useState(false);
 
   if (!user) {
     return (
@@ -40,18 +42,24 @@ const BookGrid = () => {
 
   if (books.length === 0) {
     return (
-      <div className="text-center py-12">
-        <BookOpen className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">
-          Votre bibliothèque est vide
-        </h3>
-        <p className="text-gray-600 mb-6">
-          Commencez par ajouter votre premier livre PDF
-        </p>
-        <Button>
-          Ajouter un livre
-        </Button>
-      </div>
+      <>
+        <div className="text-center py-12">
+          <BookOpen className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">
+            Votre bibliothèque est vide
+          </h3>
+          <p className="text-gray-600 mb-6">
+            Commencez par ajouter votre premier livre PDF
+          </p>
+          <Button onClick={() => setShowUploadModal(true)}>
+            Ajouter un livre
+          </Button>
+        </div>
+        <UploadModal
+          isOpen={showUploadModal}
+          onClose={() => setShowUploadModal(false)}
+        />
+      </>
     );
   }
 
@@ -68,6 +76,7 @@ const BookGrid = () => {
           <BookCard key={book.id} book={book} />
         ))}
       </div>
+      <UploadModal isOpen={showUploadModal} onClose={() => setShowUploadModal(false)} />
     </div>
   );
 };

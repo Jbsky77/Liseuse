@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Book, User, Settings, LogOut } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import AuthModal from './AuthModal';
@@ -46,6 +47,9 @@ const Navigation = () => {
                   </Button>
                   <Button variant="ghost" className="text-gray-700 hover:text-blue-600">
                     Favoris
+                  </Button>
+                  <Button asChild variant="ghost" className="text-gray-700 hover:text-blue-600">
+                    <Link to="/payment">Paiement</Link>
                   </Button>
                 </div>
               )}

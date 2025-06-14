@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
+import VoyantIndex from "./pages/VoyantIndex";
 import NotFound from "./pages/NotFound";
 import Reader from "./pages/Reader";
 import AdminUsers from "./pages/AdminUsers";
@@ -23,6 +24,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/voyant" element={<VoyantIndex />} />
             <Route path="/read/:bookId" element={<Reader />} />
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/voyant/users" element={<VoyantUsers />} />

@@ -51,6 +51,9 @@ const Navigation = () => {
                   <Button asChild variant="ghost" className="text-gray-700 hover:text-blue-600">
                     <Link to="/payment">Paiement</Link>
                   </Button>
+                  <Button asChild variant="ghost" className="text-gray-700 hover:text-blue-600">
+                    <Link to="/voyant/users">Utilisateurs</Link>
+                  </Button>
                 </div>
               )}
             </div>
